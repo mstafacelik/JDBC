@@ -8,7 +8,7 @@ public class JDBC02_Query {
         Statement st = con.createStatement();
 
 
-        // ORNEK 1: Id'si 1'den buyuk firmalarin ismini ve iletisim_isim'ini isim ters sirali yazdirin.
+        // ORNEK 1: Id'si 1'den buyuk firmalarin namen ve kontakt bilgilerini namen ters sirali yazdirin.
 
         /*
         CREATE TABLE unternehmen
@@ -26,7 +26,7 @@ public class JDBC02_Query {
          */
 
 
-        String selectQuery = "select namen, kontakt " +   // " tirnaktan önceki bosuga dikkat ! Aksi halde calismaz. Tikpi MySQL deki gibi olmali yazim
+        String selectQuery = "select namen, kontakt " +   // " tirnaktan önceki bosuga dikkat ! Aksi halde calismaz. Tipki MySQL deki gibi olmali yazim
                 "from unternehmen " +
                 "where id >1 " +
                 "order by namen desc";
@@ -35,11 +35,11 @@ public class JDBC02_Query {
 
         String selectQuery2 = "select namen, kontakt from unternehmen where id >1 order by namen desc";
 
-        ResultSet data = st.executeQuery(selectQuery);
+        ResultSet set = st.executeQuery(selectQuery);
 
-        while (data.next()) {
+        while (set.next()) {
 
-            System.out.println(data.getString("namen") + " " + data.getString("kontakt"));
+            System.out.println(set.getString("namen") + " " + set.getString("kontakt"));
 
 
         }
@@ -55,6 +55,7 @@ public class JDBC02_Query {
 
 
         // 1. yol
+
         //     while (selectSorgu.next()) {
         //     System.out.println(selectSorgu.getInt("id") + " " + selectSorgu.getString("namen"));
         //
@@ -62,6 +63,7 @@ public class JDBC02_Query {
 
 
         // 2.Yol
+
         // NOT1 : Sorgulama icin get ile istenirse sütun (field) ismini yazabilecegimiz gibi sutun index
         // (field olusturulma sirasina gore) yazilabilir.
         // NOT2 : Sorgumuzda SELECT'ten sonra sadece belli fieldlari dondurmesini istiyorsak
@@ -75,7 +77,7 @@ public class JDBC02_Query {
 
         con.close();
         st.close();
-        data.close();
+        set.close();
         selectSorgu.close();
 
     }
